@@ -23,28 +23,39 @@ namespace Bank
         {
 
         }
-
+        public Class1 b = new Class1(0);
         private void button1_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
-            a.sum = 0;
-            Class1 b_cl = new Class1(0);
-            listBox1.Items.Add($"Инициализирован пользователь с именем: {textBox1.Text}   ||   Денег на счету: {a.sum}");
+            
+            listBox1.Items.Add($"Инициализирован пользователь с именем: {textBox1.Text}   ||   Денег на счету: {b.Sum}");
             
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            a.sum += Convert.ToInt32(textBox2.Text);
-            listBox1.Items.Add($"Счёт пополнен на {textBox2.Text}   ||   Денег на счету: {a.sum}");
-            textBox2.Text = "";
+            
+            b.Notify += DisplayMessage;
+            b.Put(Convert.ToInt32(textBox2.Text));
+            //a.sum += Convert.ToInt32(textBox2.Text);
+            //listBox1.Items.Add($"Счёт пополнен на {textBox2.Text}   ||   Денег на счету: {a.sum}");
+            //textBox2.Text = "";
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            a.sum -= Convert.ToInt32(textBox2.Text);
-            listBox1.Items.Add($"Со счёта снято {textBox2.Text}   ||   Денег на счету: {a.sum}");
-            textBox2.Text = "";
+            b.Notify += DisplayMessage;
+            b.Take(Convert.ToInt32(textBox2.Text));
+            //a.sum -= Convert.ToInt32(textBox2.Text);
+            //listBox1.Items.Add($"Со счёта снято {textBox2.Text}   ||   Денег на счету: {a.sum}");
+            //textBox2.Text = "";
+        }
+        void DisplayMessage(Class1 sender, AccountEventArgs e)
+        {
+            //listBox1.Items.Add($"Сумма транзакции: {e.Sum}");
+            listBox1.Items.Add($"{e.Message}");
+            listBox1.Items.Add($"Остаток на счету: {sender.Sum}\n");
+
         }
     }
 }
